@@ -1,6 +1,7 @@
 import { Route, Routes, Navigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+
 import Body from "./components/Body";
 import LoginPage from "./pages/LoginPage";
 import HomePage from "./pages/HomePage";
@@ -21,11 +22,19 @@ function App() {
   return (
     <div>
       <Toaster position="top-center" reverseOrder={false} />
+
       <Routes>
         <Route
           path="/login"
-          element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
+          element={
+            isAuthenticated ? (
+              <Navigate to="/" replace />
+            ) : (
+              <LoginPage setIsAuthenticated={setIsAuthenticated} />
+            )
+          }
         />
+
         <Route
           path="/"
           element={
